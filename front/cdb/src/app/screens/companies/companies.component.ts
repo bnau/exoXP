@@ -1,12 +1,11 @@
 import { Component, OnInit } from '@angular/core';
 import { Company } from 'src/app/business/domain/company';
-import { CompanyService } from 'src/app/business/services/company.service';
 import { Page } from 'src/app/business/domain/page';
+import { CompanyService } from 'src/app/business/services/company.service';
 
 @Component({
   selector: 'app-companies',
-  templateUrl: './companies.component.html',
-  styleUrls: ['./companies.component.scss']
+  templateUrl: './companies.component.html'
 })
 export class CompaniesComponent implements OnInit {
 
@@ -17,6 +16,19 @@ export class CompaniesComponent implements OnInit {
   ngOnInit() {
     this.companyService.getCompanies().subscribe(compPage =>
       this.companiesPage = compPage);
+  }
+
+  getRoute(num: number) {
+    this.companyService.getCompaniesByPageNum(num).subscribe(compPage =>
+      this.companiesPage = compPage);
+  }
+
+  getNext() {
+    this.getRoute(this.companiesPage.number + 1);
+  }
+
+  getPrev() {
+    this.getRoute(this.companiesPage.number - 1);
   }
 
 }

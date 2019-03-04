@@ -14,4 +14,8 @@ export class CompanyService {
   getCompanies(): Observable<Page<Company>> {
     return this.httpClient.get<Page<Company>>('/api/companies');
   }
+
+  getCompaniesByPageNum(num: number): Observable<Page<Company>> {
+    return this.httpClient.get<Page<Company>>(`/api/companies?page=${num}`);
+  }
 }
