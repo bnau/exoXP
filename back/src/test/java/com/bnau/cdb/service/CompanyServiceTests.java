@@ -11,6 +11,7 @@ import org.springframework.data.domain.PageRequest;
 import org.springframework.test.context.junit4.SpringRunner;
 
 import com.bnau.cdb.CdbApplication;
+import com.bnau.cdb.dto.CompanyDto;
 
 @RunWith(SpringRunner.class)
 @SpringBootTest(classes = CdbApplication.class)
@@ -27,5 +28,11 @@ public class CompanyServiceTests {
 	@Test
 	public void findCompanyByIdTest() {
 		assertEquals("Apple Inc.", this.companyService.findCompanyById(1L).getName());
+	}
+
+	@Test
+	public void updateCompanyTest() {
+		this.companyService.updateCompany(new CompanyDto(1L, "Apple Test"));
+		assertEquals("Apple Test", this.companyService.findCompanyById(1L).getName());
 	}
 }
