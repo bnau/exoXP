@@ -1,7 +1,7 @@
 import { Component, OnInit } from '@angular/core';
-import { Company } from 'src/app/business/domain/company';
-import { Page } from 'src/app/business/domain/page';
-import { CompanyService } from 'src/app/business/services/company.service';
+import { Company } from 'src/app/companies/company.model';
+import { CompanyService } from 'src/app/companies/company.service';
+import { Page } from '../shared/model/page';
 
 @Component({
   selector: 'app-companies',
@@ -19,7 +19,7 @@ export class CompaniesComponent implements OnInit {
   }
 
   getRoute(num: number) {
-    this.companyService.getCompaniesByPageNum(num).subscribe(compPage =>
+    this.companyService.getCompanies(num).subscribe(compPage =>
       this.companiesPage = compPage);
   }
 

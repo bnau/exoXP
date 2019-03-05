@@ -3,7 +3,7 @@ import { NgModule } from '@angular/core';
 import { BrowserModule } from '@angular/platform-browser';
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
-import { ScreensModule } from './screens/screens.module';
+import { CompaniesModule } from './companies/companies.module';
 
 
 @NgModule({
@@ -14,7 +14,7 @@ import { ScreensModule } from './screens/screens.module';
     BrowserModule,
     AppRoutingModule,
     HttpClientModule,
-    ScreensModule
+    CompaniesModule
   ],
   providers: [],
   bootstrap: [AppComponent],

@@ -1,13 +1,15 @@
 import { CommonModule } from '@angular/common';
 import { NgModule } from '@angular/core';
-import { CompaniesComponent } from './companies/companies.component';
+import { CompaniesComponent } from './companies.component';
 import { EditCompaniesComponent } from './edit-companies/edit-companies.component';
+import { RouterModule } from '@angular/router';
 
 @NgModule({
   declarations: [CompaniesComponent, EditCompaniesComponent],
   imports: [
-    CommonModule
+    CommonModule,
+    RouterModule
   ],
   exports: [CompaniesComponent]
 })
-export class ScreensModule { }
+export class CompaniesModule { }
