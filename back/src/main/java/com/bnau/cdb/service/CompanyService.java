@@ -3,6 +3,7 @@ package com.bnau.cdb.service;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 
+import com.bnau.cdb.dto.CompanyDto;
 import com.bnau.cdb.model.Company;
 
 /**
@@ -12,7 +13,7 @@ import com.bnau.cdb.model.Company;
  *
  */
 public interface CompanyService {
-
+	
 	/**
 	 * Find companies.
 	 *
@@ -21,7 +22,7 @@ public interface CompanyService {
 	 * @return Page of companies.
 	 */
 	Page<Company> findCompanies(Pageable pageable);
-
+	
 	/**
 	 * Find the company by its id.
 	 *
@@ -29,11 +30,11 @@ public interface CompanyService {
 	 * @return The Company
 	 */
 	Company findCompanyById(Long id);
-
+	
 	/**
 	 * Update the company.
 	 *
-	 * @param company The company to update.
+	 * @param company The company informations.
 	 */
-	void updateCompany(Company company);
+	void updateCompany(CompanyDto company);
 }

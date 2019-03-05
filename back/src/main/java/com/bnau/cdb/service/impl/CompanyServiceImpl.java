@@ -9,6 +9,7 @@ import org.springframework.http.HttpStatus;
 import org.springframework.stereotype.Service;
 import org.springframework.web.server.ResponseStatusException;
 
+import com.bnau.cdb.dto.CompanyDto;
 import com.bnau.cdb.model.Company;
 import com.bnau.cdb.repository.CompanyRepository;
 import com.bnau.cdb.service.CompanyService;
@@ -21,10 +22,10 @@ import com.bnau.cdb.service.CompanyService;
  */
 @Service
 public class CompanyServiceImpl implements CompanyService {
-	
+
 	@Autowired
 	private CompanyRepository companyRepository;
-
+	
 	/**
 	 * {@inheritDocs}
 	 */
@@ -32,7 +33,7 @@ public class CompanyServiceImpl implements CompanyService {
 	public Page<Company> findCompanies(final Pageable pageable) {
 		return this.companyRepository.findAll(pageable);
 	}
-
+	
 	/**
 	 * {@inheritDocs}
 	 */
@@ -45,4 +46,13 @@ public class CompanyServiceImpl implements CompanyService {
 		}
 	}
 	
+	/**
+	 * {@inheritDocs}
+	 */
+	@Override
+	public void updateCompany(final CompanyDto company) {
+		// TODO Auto-generated method stub
+
+	}
+
 }
