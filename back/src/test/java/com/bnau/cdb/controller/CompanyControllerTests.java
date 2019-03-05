@@ -1,5 +1,6 @@
 package com.bnau.cdb.controller;
 
+import static org.hamcrest.Matchers.equalTo;
 import static org.hamcrest.Matchers.greaterThan;
 import static org.hamcrest.Matchers.hasSize;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.get;
@@ -22,10 +23,10 @@ import com.bnau.cdb.CdbApplication;
 @SpringBootTest(classes = CdbApplication.class)
 @AutoConfigureMockMvc
 public class CompanyControllerTests {
-	
+
 	@Autowired
 	private MockMvc mockMvc;
-
+	
 	@Test
 	public void findCompaniesTest() throws Exception {
 		// @formatter:off
@@ -33,6 +34,16 @@ public class CompanyControllerTests {
 				.andExpect(status().isOk())
 				.andExpect(content().contentType(MediaType.APPLICATION_JSON_UTF8))
 				.andExpect(jsonPath("$.content", hasSize(greaterThan(0))));
+		// @formatter:on
+	}
+	
+	@Test
+	public void findCompanyByIdTest() throws Exception {
+		// @formatter:off
+		this.mockMvc.perform(get("/api/companies/1"))
+				.andExpect(status().isOk())
+				.andExpect(content().contentType(MediaType.APPLICATION_JSON_UTF8))
+				.andExpect(jsonPath("$.name", equalTo("Apple Inc.")));
 		// @formatter:on
 	}
 }

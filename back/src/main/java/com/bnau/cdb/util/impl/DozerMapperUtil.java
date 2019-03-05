@@ -15,9 +15,17 @@ import com.bnau.cdb.util.MapperUtil;
  */
 @Component
 public class DozerMapperUtil implements MapperUtil {
-
+	
 	private static final Mapper MAPPER = new DozerBeanMapper();
-
+	
+	/**
+	 * {@inheritDoc}
+	 */
+	@Override
+	public <S, D> D map(final S source, final Class<D> destClass) {
+		return MAPPER.map(source, destClass);
+	}
+	
 	/**
 	 * {@inheritDoc}
 	 */
@@ -25,5 +33,5 @@ public class DozerMapperUtil implements MapperUtil {
 	public <S, D> Page<D> map(final Page<S> source, final Class<D> destClass) {
 		return source.map(s -> MAPPER.map(s, destClass));
 	}
-
+	
 }

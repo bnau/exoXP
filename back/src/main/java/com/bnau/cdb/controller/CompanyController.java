@@ -4,6 +4,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
@@ -34,5 +35,10 @@ public class CompanyController {
 	@GetMapping
 	public Page<CompanyDto> findCompanies(@ApiIgnore final Pageable pageable) {
 		return this.mapperUtil.map(this.companyService.findCompanies(pageable), CompanyDto.class);
+	}
+	
+	@GetMapping("/{id}")
+	public CompanyDto findCompanyById(@PathVariable final Long id) {
+		return this.mapperUtil.map(this.companyService.findCompanyById(id), CompanyDto.class);
 	}
 }

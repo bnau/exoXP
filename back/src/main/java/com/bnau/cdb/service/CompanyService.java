@@ -21,4 +21,19 @@ public interface CompanyService {
 	 * @return Page of companies.
 	 */
 	Page<Company> findCompanies(Pageable pageable);
+
+	/**
+	 * Find the company by its id.
+	 *
+	 * @param id The id of the company.
+	 * @return The Company
+	 */
+	Company findCompanyById(Long id);
+
+	/**
+	 * Update the company.
+	 *
+	 * @param company The company to update.
+	 */
+	void updateCompany(Company company);
 }
