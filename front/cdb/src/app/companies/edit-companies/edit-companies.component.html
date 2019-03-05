@@ -1,16 +1,16 @@
 <div class="container mt-5">
 
-  <section>
-      <h1>CM-5</h1>
-      <form name="computer">
-          <div class="form-group">
-              <label for="name">Name</label>
-              <input class="form-control" id="name" name="name"
-                     required="" type="text">
-          </div>
+    <section>
+        <h1>Company n°{{company?.id}}</h1>
+        <form name="computer">
+            <div class="form-group">
+                <label for="name">Name</label>
+                <input class="form-control" id="name" name="name" required="" [(ngModel)]="company.name" type="text">
+            </div>
 
-          <button class="btn btn-success" type="submit">Save !</button>
+            <button class="btn btn-success" type="submit" (click)="update()">Save !</button>
+            <button class="btn btn-danger" type="submit" (click)="delete()">Delete</button>
 
-      </form>
-  </section>
+        </form>
+    </section>
 </div>
