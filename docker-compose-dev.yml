@@ -1,0 +1,22 @@
+version: '3'
+services:
+  db_dev:
+    container_name: cdb_database_dev
+    image: postgres
+    volumes:
+      - sample_db_dev:/var/lib/postgresql/data_dev
+      - ./sql/init.sql:/docker-entrypoint-initdb.d/init.sql
+      - ./sql/init_test.sql:/docker-entrypoint-initdb.d/init_test.sql
+    ports:
+      - "5432:5432"
+    environment:
+      - POSTGRES_DB=cdb
+      - POSTGRES_USER=cdb_usr
+      - POSTGRES_PASSWORD=cdb_pwd
+      - PGDATA=/var/lib/postgresql/data_dev/pgdata
+  sonarqube:
+    image: sonarqube
+    ports:
+      - "9000:9000"
+volumes:
+  sample_db_dev: {}
