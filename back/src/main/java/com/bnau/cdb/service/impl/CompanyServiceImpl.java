@@ -4,7 +4,9 @@ import java.util.NoSuchElementException;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Pageable;
+import org.springframework.data.domain.Sort;
 import org.springframework.http.HttpStatus;
 import org.springframework.stereotype.Service;
 import org.springframework.web.server.ResponseStatusException;
@@ -22,18 +24,20 @@ import com.bnau.cdb.service.CompanyService;
  */
 @Service
 public class CompanyServiceImpl implements CompanyService {
-	
+
 	@Autowired
 	private CompanyRepository companyRepository;
-
+	
 	/**
 	 * {@inheritDocs}
 	 */
 	@Override
 	public Page<Company> findCompanies(final Pageable pageable) {
-		return this.companyRepository.findAll(pageable);
+		final PageRequest page = PageRequest.of(pageable.getPageNumber(), pageable.getPageSize(),
+				pageable.getSortOr(Sort.by("id")));
+		return this.companyRepository.findAll(page);
 	}
-
+	
 	/**
 	 * {@inheritDocs}
 	 */
@@ -45,7 +49,7 @@ public class CompanyServiceImpl implements CompanyService {
 			throw new ResponseStatusException(HttpStatus.NOT_FOUND, "Company Not Found", e);
 		}
 	}
-
+	
 	/**
 	 * {@inheritDocs}
 	 */
@@ -56,5 +60,5 @@ public class CompanyServiceImpl implements CompanyService {
 		dbCompany.setName(company.getName());
 		this.companyRepository.save(dbCompany);
 	}
-	
+
 }
