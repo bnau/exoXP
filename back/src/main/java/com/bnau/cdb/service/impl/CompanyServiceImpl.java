@@ -22,10 +22,10 @@ import com.bnau.cdb.service.CompanyService;
  */
 @Service
 public class CompanyServiceImpl implements CompanyService {
-
+	
 	@Autowired
 	private CompanyRepository companyRepository;
-	
+
 	/**
 	 * {@inheritDocs}
 	 */
@@ -33,7 +33,7 @@ public class CompanyServiceImpl implements CompanyService {
 	public Page<Company> findCompanies(final Pageable pageable) {
 		return this.companyRepository.findAll(pageable);
 	}
-	
+
 	/**
 	 * {@inheritDocs}
 	 */
@@ -45,14 +45,16 @@ public class CompanyServiceImpl implements CompanyService {
 			throw new ResponseStatusException(HttpStatus.NOT_FOUND, "Company Not Found", e);
 		}
 	}
-	
+
 	/**
 	 * {@inheritDocs}
 	 */
 	@Override
 	public void updateCompany(final CompanyDto company) {
-		// TODO Auto-generated method stub
-
+		final Company dbCompany = new Company();
+		dbCompany.setId(company.getId());
+		dbCompany.setName(company.getName());
+		this.companyRepository.save(dbCompany);
 	}
-
+	
 }

@@ -3,6 +3,8 @@ package com.bnau.cdb.service;
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertTrue;
 
+import javax.transaction.Transactional;
+
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -15,6 +17,7 @@ import com.bnau.cdb.dto.CompanyDto;
 
 @RunWith(SpringRunner.class)
 @SpringBootTest(classes = CdbApplication.class)
+@Transactional
 public class CompanyServiceTests {
 	
 	@Autowired
@@ -32,7 +35,7 @@ public class CompanyServiceTests {
 
 	@Test
 	public void updateCompanyTest() {
-		this.companyService.updateCompany(new CompanyDto(1L, "Apple Test"));
-		assertEquals("Apple Test", this.companyService.findCompanyById(1L).getName());
+		this.companyService.updateCompany(new CompanyDto(2L, "Company Test"));
+		assertEquals("Company Test", this.companyService.findCompanyById(2L).getName());
 	}
 }

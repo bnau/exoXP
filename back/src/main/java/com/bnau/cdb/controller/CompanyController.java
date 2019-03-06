@@ -5,6 +5,7 @@ import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
@@ -40,5 +41,10 @@ public class CompanyController {
 	@GetMapping("/{id}")
 	public CompanyDto findCompanyById(@PathVariable final Long id) {
 		return this.mapperUtil.map(this.companyService.findCompanyById(id), CompanyDto.class);
+	}
+	
+	@PostMapping
+	public void updateCompany(final CompanyDto company) {
+		this.companyService.updateCompany(company);
 	}
 }
