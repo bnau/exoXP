@@ -25,24 +25,24 @@ import springfox.documentation.annotations.ApiIgnore;
 @RestController
 @RequestMapping("api/companies")
 public class CompanyController {
-
-	@Autowired
-	private CompanyService companyService;
 	
 	@Autowired
-	private MapperUtil mapperUtil;
+	private CompanyService companyService;
 
+	@Autowired
+	private MapperUtil mapperUtil;
+	
 	@ApiPageable
 	@GetMapping
 	public Page<CompanyDto> findCompanies(@ApiIgnore final Pageable pageable) {
 		return this.mapperUtil.map(this.companyService.findCompanies(pageable), CompanyDto.class);
 	}
-	
+
 	@GetMapping("/{id}")
 	public CompanyDto findCompanyById(@PathVariable final Long id) {
 		return this.mapperUtil.map(this.companyService.findCompanyById(id), CompanyDto.class);
 	}
-	
+
 	@PostMapping
 	public void updateCompany(final CompanyDto company) {
 		this.companyService.updateCompany(company);

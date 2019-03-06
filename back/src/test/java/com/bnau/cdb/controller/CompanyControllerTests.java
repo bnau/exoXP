@@ -4,9 +4,12 @@ import static org.hamcrest.Matchers.equalTo;
 import static org.hamcrest.Matchers.greaterThan;
 import static org.hamcrest.Matchers.hasSize;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.get;
+import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.post;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.content;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.jsonPath;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
+
+import javax.transaction.Transactional;
 
 import org.junit.Test;
 import org.junit.runner.RunWith;
@@ -22,6 +25,7 @@ import com.bnau.cdb.CdbApplication;
 @RunWith(SpringRunner.class)
 @SpringBootTest(classes = CdbApplication.class)
 @AutoConfigureMockMvc
+@Transactional
 public class CompanyControllerTests {
 
 	@Autowired
@@ -44,6 +48,17 @@ public class CompanyControllerTests {
 				.andExpect(status().isOk())
 				.andExpect(content().contentType(MediaType.APPLICATION_JSON_UTF8))
 				.andExpect(jsonPath("$.name", equalTo("Apple Inc.")));
+		// @formatter:on
+	}
+	
+	@Test
+	public void updateCompanyTest() throws Exception {
+		// @formatter:off
+		this.mockMvc.perform(post("/api/companies")
+				.contentType(MediaType.APPLICATION_JSON_UTF8)
+				.param("id", "1")
+				.param("name", "Test Name"))
+				.andExpect(status().isOk());
 		// @formatter:on
 	}
 }
