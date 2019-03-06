@@ -22,7 +22,7 @@ export class CompanyService {
     return this.httpClient.get<Company>(`/api/companies/${num}`);
   }
 
-  updateCompany(company: Company): void {
-    this.httpClient.post('/api/companies', { company });
+  updateCompany(company: Company): any {
+    return this.httpClient.post('/api/companies', { company });
   }
 }

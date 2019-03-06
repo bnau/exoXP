@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { ActivatedRoute } from '@angular/router';
+import { ActivatedRoute, Router } from '@angular/router';
 import { Company } from 'src/app/companies/company.model';
 import { CompanyService } from 'src/app/companies/company.service';
 
@@ -9,11 +9,12 @@ import { CompanyService } from 'src/app/companies/company.service';
 })
 export class EditCompaniesComponent implements OnInit {
 
-  company: Company;
+  company = new Company();
 
   constructor(
     private readonly companyService: CompanyService,
-    private readonly route: ActivatedRoute
+    private readonly route: ActivatedRoute,
+    private readonly router: Router
   ) { }
 
   ngOnInit() {
@@ -22,7 +23,9 @@ export class EditCompaniesComponent implements OnInit {
   }
 
   update() {
-    this.companyService.updateCompany(this.company);
+    this.companyService.updateCompany(this.company).subscribe(() =>
+      this.router.navigate(['/compaies'])
+    );
   }
 
 }
