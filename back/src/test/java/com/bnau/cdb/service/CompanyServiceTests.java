@@ -2,6 +2,7 @@ package com.bnau.cdb.service;
 
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertFalse;
+import static org.junit.Assert.assertNotNull;
 import static org.junit.Assert.assertTrue;
 
 import javax.transaction.Transactional;
@@ -15,6 +16,7 @@ import org.springframework.test.context.junit4.SpringRunner;
 
 import com.bnau.cdb.CdbApplication;
 import com.bnau.cdb.dto.CompanyDto;
+import com.bnau.cdb.model.Company;
 import com.bnau.cdb.repository.CompanyRepository;
 
 @RunWith(SpringRunner.class)
@@ -48,5 +50,13 @@ public class CompanyServiceTests {
 	public void deleteCompanyTest() {
 		this.companyService.deleteCompany(1L);
 		assertFalse(this.companyRepository.findById(1L).isPresent());
+	}
+
+	@Test
+	public void addCompanyTest() {
+		final CompanyDto companyDto = new CompanyDto();
+		companyDto.setName("Test Name");
+		final Company company = this.companyService.addCompany(companyDto);
+		assertNotNull(company.getId());
 	}
 }
