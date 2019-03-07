@@ -1,15 +1,25 @@
 <div class="container mt-5">
 
     <section>
-        <h1>Company n°{{company?.id}}</h1>
+        <h1>
+            <ng-container *ngIf="creationMode; else editTitle">
+                New Company
+            </ng-container>
+            <ng-template #editTitle>
+                Company n°{{company?.id}}
+            </ng-template>
+        </h1>
+
         <form name="computer">
             <div class="form-group">
                 <label for="name">Name</label>
                 <input class="form-control" id="name" name="name" required="" [(ngModel)]="company.name" type="text">
             </div>
 
-            <button class="btn btn-success" type="submit" (click)="update()">Save !</button>
-            <button class="btn btn-danger" type="submit" (click)="delete()">Delete</button>
+            <button class="btn btn-success" (click)="creationMode ? insert() : update()">Save !</button>
+            <button class="btn btn-danger" (click)="creationMode ? cancel() : delete()">
+                {{creationMode ? 'Cancel' : 'Delete' }}
+            </button>
 
         </form>
     </section>

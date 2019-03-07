@@ -29,4 +29,9 @@ export class CompanyService {
   deleteCompany(id: number): Observable<any> {
     return this.httpClient.delete<Company>(`/api/companies/${id}`);
   }
+
+  saveCompany(company: Company): Observable<number> {
+    return this.httpClient.put<number>('/api/companies', { ...company });
+  }
 }
+
