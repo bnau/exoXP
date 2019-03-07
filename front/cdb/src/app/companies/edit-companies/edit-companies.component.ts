@@ -28,4 +28,11 @@ export class EditCompaniesComponent implements OnInit {
     );
   }
 
+  delete() {
+    if (confirm("Are you sure you want to delete this. company? This will also delete its computers.")) {
+      this.companyService.deleteCompany(this.company.id).subscribe(() =>
+        this.router.navigate(['/companies'])
+      );
+    }
+  }
 }

@@ -18,11 +18,15 @@ export class CompanyService {
     return this.httpClient.get<Page<Company>>(`/api/companies?page=${num}`);
   }
 
-  getCompany(num: number): Observable<Company> {
-    return this.httpClient.get<Company>(`/api/companies/${num}`);
+  getCompany(id: number): Observable<Company> {
+    return this.httpClient.get<Company>(`/api/companies/${id}`);
   }
 
-  updateCompany(company: Company): any {
+  updateCompany(company: Company): Observable<any> {
     return this.httpClient.post('/api/companies', { ...company });
+  }
+
+  deleteCompany(id: number): Observable<any> {
+    return this.httpClient.delete<Company>(`/api/companies/${id}`);
   }
 }

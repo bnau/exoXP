@@ -14,6 +14,7 @@ import org.springframework.web.server.ResponseStatusException;
 import com.bnau.cdb.dto.CompanyDto;
 import com.bnau.cdb.model.Company;
 import com.bnau.cdb.repository.CompanyRepository;
+import com.bnau.cdb.repository.ComputerRepository;
 import com.bnau.cdb.service.CompanyService;
 
 /**
@@ -27,7 +28,10 @@ public class CompanyServiceImpl implements CompanyService {
 
 	@Autowired
 	private CompanyRepository companyRepository;
-	
+
+	@Autowired
+	private ComputerRepository computerRepository;
+
 	/**
 	 * {@inheritDocs}
 	 */
@@ -37,7 +41,7 @@ public class CompanyServiceImpl implements CompanyService {
 				pageable.getSortOr(Sort.by("id")));
 		return this.companyRepository.findAll(page);
 	}
-	
+
 	/**
 	 * {@inheritDocs}
 	 */
@@ -49,7 +53,7 @@ public class CompanyServiceImpl implements CompanyService {
 			throw new ResponseStatusException(HttpStatus.NOT_FOUND, "Company Not Found", e);
 		}
 	}
-	
+
 	/**
 	 * {@inheritDocs}
 	 */
@@ -59,6 +63,15 @@ public class CompanyServiceImpl implements CompanyService {
 		dbCompany.setId(company.getId());
 		dbCompany.setName(company.getName());
 		this.companyRepository.save(dbCompany);
+	}
+
+	/**
+	 * {@inheritDocs}
+	 */
+	@Override
+	public void deleteCompany(Long id) {
+		computerRepository.deleteByCompany(companyRepository.findById(id).get());
+		companyRepository.deleteById(id);
 	}
 
 }
