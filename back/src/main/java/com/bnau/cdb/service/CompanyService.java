@@ -13,7 +13,7 @@ import com.bnau.cdb.model.Company;
  *
  */
 public interface CompanyService {
-	
+
 	/**
 	 * Find companies.
 	 *
@@ -22,7 +22,7 @@ public interface CompanyService {
 	 * @return Page of companies.
 	 */
 	Page<Company> findCompanies(Pageable pageable);
-	
+
 	/**
 	 * Find the company by its id.
 	 *
@@ -30,11 +30,18 @@ public interface CompanyService {
 	 * @return The Company
 	 */
 	Company findCompanyById(Long id);
-	
+
 	/**
 	 * Update the company.
 	 *
 	 * @param company The company informations.
 	 */
 	void updateCompany(CompanyDto company);
+
+	/**
+	 * Delete a company.
+	 * 
+	 * @param id The id of the company to delete.
+	 */
+	void deleteCompany(Long id);
 }

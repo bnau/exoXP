@@ -3,6 +3,7 @@ package com.bnau.cdb.controller;
 import static org.hamcrest.Matchers.equalTo;
 import static org.hamcrest.Matchers.greaterThan;
 import static org.hamcrest.Matchers.hasSize;
+import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.delete;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.get;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.post;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.content;
@@ -61,6 +62,14 @@ public class CompanyControllerTests {
 		this.mockMvc.perform(post("/api/companies")
 				.contentType(MediaType.APPLICATION_JSON_UTF8)
 				.content(requestJson))
+				.andExpect(status().isOk());
+		// @formatter:on
+	}
+
+	@Test
+	public void deleteCompanyTest() throws Exception {
+		// @formatter:off
+		this.mockMvc.perform(delete("/api/companies/1"))
 				.andExpect(status().isOk());
 		// @formatter:on
 	}
