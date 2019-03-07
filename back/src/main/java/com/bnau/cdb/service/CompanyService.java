@@ -40,8 +40,15 @@ public interface CompanyService {
 
 	/**
 	 * Delete a company.
-	 * 
+	 *
 	 * @param id The id of the company to delete.
 	 */
 	void deleteCompany(Long id);
+
+	/**
+	 * Insert a company.
+	 *
+	 * @param company The company to insert.
+	 */
+	Company addCompany(CompanyDto company);
 }

@@ -7,7 +7,7 @@ const routes: Routes = [
 
   { path: 'companies', component: CompaniesComponent },
   { path: '', redirectTo: '/companies', pathMatch: 'full' },
-  
+
   { path: 'companies/:id', component: EditCompaniesComponent },
 ];
 

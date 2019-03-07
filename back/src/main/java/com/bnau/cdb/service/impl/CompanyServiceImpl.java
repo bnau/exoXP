@@ -16,6 +16,7 @@ import com.bnau.cdb.model.Company;
 import com.bnau.cdb.repository.CompanyRepository;
 import com.bnau.cdb.repository.ComputerRepository;
 import com.bnau.cdb.service.CompanyService;
+import com.bnau.cdb.util.MapperUtil;
 
 /**
  * Default implementation of {@link CompanyService}
@@ -25,13 +26,16 @@ import com.bnau.cdb.service.CompanyService;
  */
 @Service
 public class CompanyServiceImpl implements CompanyService {
-
+	
+	@Autowired
+	private MapperUtil mapperUtil;
+	
 	@Autowired
 	private CompanyRepository companyRepository;
-
+	
 	@Autowired
 	private ComputerRepository computerRepository;
-
+	
 	/**
 	 * {@inheritDocs}
 	 */
@@ -41,7 +45,7 @@ public class CompanyServiceImpl implements CompanyService {
 				pageable.getSortOr(Sort.by("id")));
 		return this.companyRepository.findAll(page);
 	}
-
+	
 	/**
 	 * {@inheritDocs}
 	 */
@@ -53,7 +57,7 @@ public class CompanyServiceImpl implements CompanyService {
 			throw new ResponseStatusException(HttpStatus.NOT_FOUND, "Company Not Found", e);
 		}
 	}
-
+	
 	/**
 	 * {@inheritDocs}
 	 */
@@ -64,14 +68,23 @@ public class CompanyServiceImpl implements CompanyService {
 		dbCompany.setName(company.getName());
 		this.companyRepository.save(dbCompany);
 	}
-
+	
 	/**
 	 * {@inheritDocs}
 	 */
 	@Override
-	public void deleteCompany(Long id) {
-		computerRepository.deleteByCompany(companyRepository.findById(id).get());
-		companyRepository.deleteById(id);
+	public void deleteCompany(final Long id) {
+		this.computerRepository.deleteByCompany(this.companyRepository.findById(id).get());
+		this.companyRepository.deleteById(id);
 	}
-
+	
+	/**
+	 * {@inheritDocs}
+	 */
+	@Override
+	public Company addCompany(final CompanyDto company) {
+		final Company dbCompany = this.mapperUtil.map(company, Company.class);
+		return this.companyRepository.save(dbCompany);
+	}
+	
 }

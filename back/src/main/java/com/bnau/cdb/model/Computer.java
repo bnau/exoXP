@@ -1,14 +1,18 @@
 package com.bnau.cdb.model;
 
+import static javax.persistence.GenerationType.SEQUENCE;
+
 import java.io.Serializable;
 import java.time.LocalDateTime;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.FetchType;
+import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
+import javax.persistence.SequenceGenerator;
 import javax.persistence.Table;
 
 /**
@@ -18,7 +22,7 @@ import javax.persistence.Table;
  *
  */
 @Entity
-@Table(name="computer")
+@Table(name = "computer")
 public class Computer implements Serializable {
 	
 	/**
@@ -34,8 +38,10 @@ public class Computer implements Serializable {
 	/**
 	 * @return the id
 	 */
+	@SequenceGenerator(name = "ComputerGenerator", sequenceName = "seq_computer", allocationSize = 1)
 	@Id
-	@Column(name="id")
+	@GeneratedValue(strategy = SEQUENCE, generator = "ComputerGenerator")
+	@Column(name = "id")
 	public Long getId() {
 		return this.id;
 	}
@@ -50,7 +56,7 @@ public class Computer implements Serializable {
 	/**
 	 * @return the name
 	 */
-	@Column(name="name")
+	@Column(name = "name")
 	public String getName() {
 		return this.name;
 	}
@@ -65,7 +71,7 @@ public class Computer implements Serializable {
 	/**
 	 * @return the introduced
 	 */
-	@Column(name="introduced")
+	@Column(name = "introduced")
 	public LocalDateTime getIntroduced() {
 		return this.introduced;
 	}
@@ -80,7 +86,7 @@ public class Computer implements Serializable {
 	/**
 	 * @return the discontinued
 	 */
-	@Column(name="discontinued")
+	@Column(name = "discontinued")
 	public LocalDateTime getDiscontinued() {
 		return this.discontinued;
 	}
@@ -95,8 +101,8 @@ public class Computer implements Serializable {
 	/**
 	 * @return the company
 	 */
-	@ManyToOne(fetch=FetchType.LAZY)
-	@JoinColumn(name="company_id")
+	@ManyToOne(fetch = FetchType.LAZY)
+	@JoinColumn(name = "company_id")
 	public Company getCompany() {
 		return this.company;
 	}

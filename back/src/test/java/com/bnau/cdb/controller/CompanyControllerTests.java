@@ -3,9 +3,11 @@ package com.bnau.cdb.controller;
 import static org.hamcrest.Matchers.equalTo;
 import static org.hamcrest.Matchers.greaterThan;
 import static org.hamcrest.Matchers.hasSize;
+import static org.hamcrest.Matchers.notNullValue;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.delete;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.get;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.post;
+import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.put;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.content;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.jsonPath;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
@@ -54,9 +56,9 @@ public class CompanyControllerTests {
 
 	@Test
 	public void updateCompanyTest() throws Exception {
-		CompanyDto company = new CompanyDto(1L, "Test name");
+		final CompanyDto company = new CompanyDto(1L, "Test name");
 
-		String requestJson = TestUtil.dtoToJson(company);
+		final String requestJson = TestUtil.dtoToJson(company);
 
 		// @formatter:off
 		this.mockMvc.perform(post("/api/companies")
@@ -65,12 +67,27 @@ public class CompanyControllerTests {
 				.andExpect(status().isOk());
 		// @formatter:on
 	}
-  
+
 	@Test
 	public void deleteCompanyTest() throws Exception {
 		// @formatter:off
 		this.mockMvc.perform(delete("/api/companies/1"))
 				.andExpect(status().isOk());
+		// @formatter:on
+	}
+
+	@Test
+	public void addCompanyTest() throws Exception {
+		final CompanyDto company = new CompanyDto();
+		company.setName("Test company");
+		final String requestJson = TestUtil.dtoToJson(company);
+
+		// @formatter:off
+		this.mockMvc.perform(put("/api/companies")
+				.contentType(MediaType.APPLICATION_JSON_UTF8)
+				.content(requestJson))
+				.andExpect(status().isOk())
+				.andExpect(jsonPath("$", notNullValue()));
 		// @formatter:on
 	}
 }

@@ -11,6 +11,8 @@ export class EditCompaniesComponent implements OnInit {
 
   company = new Company();
 
+  creationMode: boolean;
+
   constructor(
     private readonly companyService: CompanyService,
     private readonly route: ActivatedRoute,
@@ -18,21 +20,37 @@ export class EditCompaniesComponent implements OnInit {
   ) { }
 
   ngOnInit() {
-    this.companyService.getCompany(this.route.snapshot.params['id']).subscribe(comp =>
-      this.company = comp);
+    const id = this.route.snapshot.params['id'];
+
+    this.creationMode = id === 'new';
+
+    if (!this.creationMode) {
+      this.companyService.getCompany(id).subscribe(comp =>
+        this.company = comp);
+    }
   }
 
   update() {
     this.companyService.updateCompany(this.company).subscribe(() =>
-      this.router.navigate(['/companies'])
+      this.cancel()
     );
   }
 
   delete() {
-    if (confirm("Are you sure you want to delete this. company? This will also delete its computers.")) {
+    if (confirm('Are you sure you want to delete this. company? This will also delete its computers.')) {
       this.companyService.deleteCompany(this.company.id).subscribe(() =>
-        this.router.navigate(['/companies'])
+        this.cancel()
       );
     }
+  }
+
+  insert() {
+    this.companyService.saveCompany(this.company).subscribe(() =>
+      this.cancel()
+    );
+  }
+
+  cancel() {
+    this.router.navigate(['/companies']);
   }
 }
