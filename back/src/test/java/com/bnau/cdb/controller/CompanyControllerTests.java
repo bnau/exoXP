@@ -65,7 +65,7 @@ public class CompanyControllerTests {
 				.andExpect(status().isOk());
 		// @formatter:on
 	}
-
+  
 	@Test
 	public void deleteCompanyTest() throws Exception {
 		// @formatter:off

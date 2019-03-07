@@ -27,13 +27,13 @@ import springfox.documentation.annotations.ApiIgnore;
 @RestController
 @RequestMapping("api/companies")
 public class CompanyController {
-
+  
 	@Autowired
 	private CompanyService companyService;
 
 	@Autowired
 	private MapperUtil mapperUtil;
-
+  
 	@ApiPageable
 	@GetMapping
 	public Page<CompanyDto> findCompanies(@ApiIgnore final Pageable pageable) {

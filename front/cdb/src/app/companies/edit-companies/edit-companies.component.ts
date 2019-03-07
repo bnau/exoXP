@@ -35,5 +35,4 @@ export class EditCompaniesComponent implements OnInit {
       );
     }
   }
-
 }
