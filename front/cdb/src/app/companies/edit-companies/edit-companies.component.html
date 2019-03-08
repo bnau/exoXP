@@ -10,14 +10,18 @@
             </ng-template>
         </h1>
 
-        <form name="computer">
+        <form name="companyForm" #f="ngForm" (ngSubmit)="f.form.valid && (creationMode ? insert() : update())">
             <div class="form-group">
                 <label for="name">Name</label>
-                <input class="form-control" id="name" name="name" required="" [(ngModel)]="company.name" type="text">
+                <input class="form-control" id="name" name="name" required="" #name="ngModel" [(ngModel)]="company.name"
+                    type="text" [ngClass]="{ 'is-invalid': f.submitted && name.invalid }">
+                <div *ngIf="f.submitted && name.invalid" class="invalid-feedback">
+                    <div *ngIf="name.errors.required">Name is required</div>
+                </div>
             </div>
 
-            <button class="btn btn-success" (click)="creationMode ? insert() : update()">Save !</button>
-            <button class="btn btn-danger" (click)="creationMode ? cancel() : delete()">
+            <button class="btn btn-success" type="submit">Save !</button>
+            <button class="btn btn-danger" type="button" (click)="creationMode ? cancel() : delete()">
                 {{creationMode ? 'Cancel' : 'Delete' }}
             </button>
 

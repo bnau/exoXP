@@ -1,5 +1,7 @@
 package com.bnau.cdb.controller;
 
+import javax.validation.Valid;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
@@ -28,34 +30,34 @@ import springfox.documentation.annotations.ApiIgnore;
 @RestController
 @RequestMapping("api/companies")
 public class CompanyController {
-	
+
 	@Autowired
 	private CompanyService companyService;
-	
+
 	@Autowired
 	private MapperUtil mapperUtil;
-	
+
 	@ApiPageable
 	@GetMapping
 	public Page<CompanyDto> findCompanies(@ApiIgnore final Pageable pageable) {
 		return this.mapperUtil.map(this.companyService.findCompanies(pageable), CompanyDto.class);
 	}
-	
+
 	@GetMapping("/{id}")
 	public CompanyDto findCompanyById(@PathVariable final Long id) {
 		return this.mapperUtil.map(this.companyService.findCompanyById(id), CompanyDto.class);
 	}
-	
+
 	@PostMapping
-	public void updateCompany(@RequestBody final CompanyDto company) {
+	public void updateCompany(@RequestBody @Valid final CompanyDto company) {
 		this.companyService.updateCompany(company);
 	}
-	
+
 	@DeleteMapping("/{id}")
 	public void deleteCompany(@PathVariable final Long id) {
 		this.companyService.deleteCompany(id);
 	}
-	
+
 	@PutMapping
 	public Long addCompany(@RequestBody final CompanyDto company) {
 		return this.companyService.addCompany(company).getId();
