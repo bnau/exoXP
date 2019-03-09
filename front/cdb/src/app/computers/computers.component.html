@@ -1,0 +1,31 @@
+<div *ngIf="computersPage">
+  <div class="container mt-5">
+    <div class="mb-2">
+      <button class="btn btn-success" [routerLink]="[ '/computers', 'new' ]">New Computer</button>
+    </div>
+    <table class="table table-striped table-bordered table-hover">
+      <thead class="thead">
+        <tr>
+          <th scope="col">#</th>
+          <th scope="col">Name</th>
+          <th scope="col">Manufacturer</th>
+          <th scope="col">Released</th>
+          <th scope="col">Discontinued</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr *ngFor="let computer of computersPage?.content">
+          <th scope="row">{{computer.id}}</th>
+          <td><a [routerLink]="[ '/computers', computer.id ]">{{computer.name}}</a></td>
+          <td><a *ngIf="computer.company?.id"
+              [routerLink]="[ '/companies', computer.company.id ]">{{computer.company?.name}}</a></td>
+          <td>{{computer.introduced | date:'EE MMM dd y'}}</td>
+          <td>{{computer.discontinued | date:'EE MMM dd y'}}</td>
+        </tr>
+      </tbody>
+    </table>
+
+    <app-pagination [(page)]="computersPage" [service]="computerService"></app-pagination>
+
+  </div>
+</div>

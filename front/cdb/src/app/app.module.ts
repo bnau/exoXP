@@ -6,6 +6,7 @@ import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
 import { CompaniesModule } from './companies/companies.module';
+import { ComputersModule } from './computers/computers.module';
 import { HttpErrorInterceptorService } from './shared/http-error-interceptor.service';
 
 
@@ -19,6 +20,7 @@ import { HttpErrorInterceptorService } from './shared/http-error-interceptor.ser
     AppRoutingModule,
     HttpClientModule,
     CompaniesModule,
+    ComputersModule,
     MatSnackBarModule
   ],
   providers: [
