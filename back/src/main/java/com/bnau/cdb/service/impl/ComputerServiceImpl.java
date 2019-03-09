@@ -86,7 +86,11 @@ public class ComputerServiceImpl implements ComputerService {
 		dbComputer.setName(computer.getName());
 		dbComputer.setIntroduced(computer.getIntroduced());
 		dbComputer.setDiscontinued(computer.getDiscontinued());
-		dbComputer.setCompany(companyService.findCompanyById(computer.getCompany().getId()));
+		if (computer.getCompany() != null) {
+			dbComputer.setCompany(companyService.findCompanyById(computer.getCompany().getId()));
+		} else {
+			dbComputer.setCompany(null);
+		}
 	}
 
 }

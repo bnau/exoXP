@@ -1,5 +1,7 @@
 package com.bnau.cdb.controller;
 
+import java.util.List;
+
 import javax.validation.Valid;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -41,6 +43,12 @@ public class CompanyController {
 	@GetMapping
 	public Page<CompanyDto> findCompanies(@ApiIgnore final Pageable pageable) {
 		return mapperUtil.map(companyService.findCompanies(pageable), CompanyDto.class);
+	}
+
+	@ApiPageable
+	@GetMapping("all")
+	public List<CompanyDto> findAllCompanies() {
+		return mapperUtil.map(companyService.findAllCompanies(), CompanyDto.class);
 	}
 
 	@GetMapping("/{id}")

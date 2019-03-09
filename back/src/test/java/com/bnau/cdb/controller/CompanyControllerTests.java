@@ -32,10 +32,10 @@ import com.bnau.cdb.util.TestUtil;
 @AutoConfigureMockMvc
 @Transactional
 public class CompanyControllerTests {
-	
+
 	@Autowired
 	private MockMvc mockMvc;
-	
+
 	@Test
 	public void findCompaniesTest() throws Exception {
 		// @formatter:off
@@ -44,7 +44,16 @@ public class CompanyControllerTests {
 				.andExpect(jsonPath("$.content", hasSize(greaterThan(0))));
 		// @formatter:on
 	}
-	
+
+	@Test
+	public void findCompaniesAllTest() throws Exception {
+		// @formatter:off
+		mockMvc.perform(get("/api/companies/all")).andExpect(status().isOk())
+				.andExpect(content().contentType(MediaType.APPLICATION_JSON_UTF8))
+				.andExpect(jsonPath("$", hasSize(42)));
+		// @formatter:on
+	}
+
 	@Test
 	public void findCompanyByIdTest() throws Exception {
 		// @formatter:off
@@ -53,13 +62,13 @@ public class CompanyControllerTests {
 				.andExpect(jsonPath("$.name", equalTo("Apple Inc.")));
 		// @formatter:on
 	}
-	
+
 	@Test
 	public void updateCompanyTest() throws Exception {
 		final CompanyDto company = new CompanyDto(1L, "Test name");
-		
+
 		final String requestJson = TestUtil.dtoToJson(company);
-		
+
 		// @formatter:off
 		mockMvc.perform(post("/api/companies")
 				.contentType(MediaType.APPLICATION_JSON_UTF8)
@@ -67,7 +76,7 @@ public class CompanyControllerTests {
 				.andExpect(status().isOk());
 		// @formatter:on
 	}
-	
+
 	@Test
 	public void deleteCompanyTest() throws Exception {
 		// @formatter:off
@@ -75,13 +84,13 @@ public class CompanyControllerTests {
 				.andExpect(status().isOk());
 		// @formatter:on
 	}
-	
+
 	@Test
 	public void addCompanyTest() throws Exception {
 		final CompanyDto company = new CompanyDto();
 		company.setName("Test company");
 		final String requestJson = TestUtil.dtoToJson(company);
-		
+
 		// @formatter:off
 		mockMvc.perform(put("/api/companies")
 				.contentType(MediaType.APPLICATION_JSON_UTF8)

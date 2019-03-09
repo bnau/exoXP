@@ -36,6 +36,11 @@ public class CompanyServiceTests {
 	}
 	
 	@Test
+	public void findAllCompaniesTest() {
+		assertEquals(42, companyService.findAllCompanies().size());
+	}
+	
+	@Test
 	public void findCompanyByIdTest() {
 		assertEquals("Apple Inc.", companyService.findCompanyById(1L).getName());
 	}
