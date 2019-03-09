@@ -16,6 +16,7 @@
 		<java.version>11</java.version>
 		<springfox-swagger.version>2.9.2</springfox-swagger.version>
 		<dozer.version>5.5.1</dozer.version>
+		<dozer-jdk8-support.version>1.0.6</dozer-jdk8-support.version>
 
 		<maven.compiler.source>${java.version}</maven.compiler.source>
 		<maven.compiler.target>${java.version}</maven.compiler.target>
@@ -82,7 +83,12 @@
 			<artifactId>dozer</artifactId>
 			<version>${dozer.version}</version>
 		</dependency>
-
+		
+			<dependency>
+			  <groupId>io.craftsman</groupId>
+			  <artifactId>dozer-jdk8-support</artifactId>
+			  <version>${dozer-jdk8-support.version}</version>
+			</dependency>
 	</dependencies>
 
 	<build>
