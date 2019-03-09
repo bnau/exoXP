@@ -1,17 +1,18 @@
 import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { Observable } from 'rxjs';
-import { Page } from '../shared/model/page';
+import { Page } from '../shared/pagination/model/page';
+import { IPageService } from '../shared/pagination/page-service-interface';
 import { Company } from './company.model';
 
 @Injectable({
   providedIn: 'root'
 })
-export class CompanyService {
+export class CompanyService implements IPageService<Company> {
 
   constructor(private readonly httpClient: HttpClient) { }
 
-  getCompanies(num?: number): Observable<Page<Company>> {
+  getEntities(num?: number): Observable<Page<Company>> {
     if (!num) {
       num = 0;
     }

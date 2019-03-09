@@ -1,6 +1,7 @@
 import { HttpClientModule } from '@angular/common/http';
 import { async, ComponentFixture, TestBed } from '@angular/core/testing';
 import { RouterTestingModule } from '@angular/router/testing';
+import { SharedModule } from '../shared/shared-module';
 import { CompaniesComponent } from './companies.component';
 
 
@@ -11,7 +12,7 @@ describe('CompaniesComponent', () => {
   beforeEach(async(() => {
     TestBed.configureTestingModule({
       declarations: [CompaniesComponent],
-      imports: [HttpClientModule, RouterTestingModule]
+      imports: [HttpClientModule, RouterTestingModule, SharedModule]
     })
       .compileComponents();
   }));
