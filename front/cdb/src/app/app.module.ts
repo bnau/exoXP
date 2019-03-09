@@ -1,9 +1,12 @@
-import { HttpClientModule } from '@angular/common/http';
+import { HttpClientModule, HTTP_INTERCEPTORS } from '@angular/common/http';
 import { NgModule } from '@angular/core';
+import { MatSnackBarModule } from '@angular/material/snack-bar';
 import { BrowserModule } from '@angular/platform-browser';
+import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
 import { CompaniesModule } from './companies/companies.module';
+import { HttpErrorInterceptorService } from './shared/http-error-interceptor.service';
 
 
 @NgModule({
@@ -11,12 +14,16 @@ import { CompaniesModule } from './companies/companies.module';
     AppComponent
   ],
   imports: [
+    BrowserAnimationsModule,
     BrowserModule,
     AppRoutingModule,
     HttpClientModule,
-    CompaniesModule
+    CompaniesModule,
+    MatSnackBarModule
   ],
-  providers: [],
+  providers: [
+    { provide: HTTP_INTERCEPTORS, useClass: HttpErrorInterceptorService, multi: true }
+  ],
   bootstrap: [AppComponent],
   entryComponents: [AppComponent]
 })
