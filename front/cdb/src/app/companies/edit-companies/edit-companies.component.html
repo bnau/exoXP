@@ -1,30 +1,32 @@
-<div class="container mt-5">
+<div *ngIf="creationMode || company?.id">
+    <div class="container mt-5">
+        <section>
+            <h1>
+                <ng-container *ngIf="creationMode; else editTitle">
+                    New Company
+                </ng-container>
+                <ng-template #editTitle>
+                    Company n°{{company?.id}}
+                </ng-template>
+            </h1>
 
-    <section>
-        <h1>
-            <ng-container *ngIf="creationMode; else editTitle">
-                New Company
-            </ng-container>
-            <ng-template #editTitle>
-                Company n°{{company?.id}}
-            </ng-template>
-        </h1>
-
-        <form name="companyForm" #f="ngForm" (ngSubmit)="f.form.valid && (creationMode ? insert() : update())">
-            <div class="form-group">
-                <label for="name">Name</label>
-                <input class="form-control" id="name" name="name" required="" #name="ngModel" [(ngModel)]="company.name"
-                    type="text" [ngClass]="{ 'is-invalid': f.submitted && name.invalid }">
-                <div *ngIf="f.submitted && name.invalid" class="invalid-feedback">
-                    <div *ngIf="name.errors.required">Name is required</div>
+            <form name="companyForm" #f="ngForm" (ngSubmit)="f.form.valid && (creationMode ? insert() : update())">
+                <div class="form-group">
+                    <label for="name">Name</label>
+                    <input class="form-control" id="name" name="name" required="" #name="ngModel"
+                        [(ngModel)]="company.name" type="text"
+                        [ngClass]="{ 'is-invalid': f.submitted && name.invalid }">
+                    <div *ngIf="f.submitted && name.invalid" class="invalid-feedback">
+                        <div *ngIf="name.errors.required">Name is required</div>
+                    </div>
                 </div>
-            </div>
 
-            <button class="btn btn-success" type="submit">Save !</button>
-            <button class="btn btn-danger" type="button" (click)="creationMode ? cancel() : delete()">
-                {{creationMode ? 'Cancel' : 'Delete' }}
-            </button>
+                <button class="btn btn-success" type="submit">Save !</button>
+                <button class="btn btn-danger" type="button" (click)="creationMode ? cancel() : delete()">
+                    {{creationMode ? 'Cancel' : 'Delete' }}
+                </button>
 
-        </form>
-    </section>
+            </form>
+        </section>
+    </div>
 </div>
