@@ -24,13 +24,13 @@ import javax.persistence.Table;
 @Entity
 @Table(name = "company")
 public class Company implements Serializable {
-	
-	private static final long serialVersionUID = 6825864928192684164L;
 
+	private static final long serialVersionUID = 6825864928192684164L;
+	
 	private Long id;
 	private String name;
 	private Set<Computer> computers = new HashSet<>();
-
+	
 	/**
 	 * @return the id
 	 */
@@ -39,39 +39,39 @@ public class Company implements Serializable {
 	@GeneratedValue(strategy = SEQUENCE, generator = "CompanyGenerator")
 	@Column(name = "id")
 	public Long getId() {
-		return this.id;
+		return id;
 	}
-
+	
 	/**
 	 * @param id the id to set
 	 */
 	public void setId(final Long id) {
 		this.id = id;
 	}
-
+	
 	/**
 	 * @return the name
 	 */
 	@Column(name = "name")
 	public String getName() {
-		return this.name;
+		return name;
 	}
-
+	
 	/**
 	 * @param name the name to set
 	 */
 	public void setName(final String name) {
 		this.name = name;
 	}
-	
+
 	/**
 	 * @return the computers
 	 */
 	@OneToMany(fetch = FetchType.LAZY, mappedBy = "company")
 	public Set<Computer> getComputers() {
-		return this.computers;
+		return computers;
 	}
-
+	
 	/**
 	 * @param computers the computers to set
 	 */

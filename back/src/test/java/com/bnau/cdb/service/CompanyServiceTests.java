@@ -23,40 +23,40 @@ import com.bnau.cdb.repository.CompanyRepository;
 @SpringBootTest(classes = CdbApplication.class)
 @Transactional
 public class CompanyServiceTests {
-
+	
 	@Autowired
 	CompanyService companyService;
-
+	
 	@Autowired
 	CompanyRepository companyRepository;
-
+	
 	@Test
 	public void findCompaniesTest() {
-		assertTrue(this.companyService.findCompanies(PageRequest.of(2, 1)).getSize() > 0);
+		assertTrue(companyService.findCompanies(PageRequest.of(2, 1)).getSize() > 0);
 	}
-
+	
 	@Test
 	public void findCompanyByIdTest() {
-		assertEquals("Apple Inc.", this.companyService.findCompanyById(1L).getName());
+		assertEquals("Apple Inc.", companyService.findCompanyById(1L).getName());
 	}
-
+	
 	@Test
 	public void updateCompanyTest() {
-		this.companyService.updateCompany(new CompanyDto(2L, "Company Test"));
-		assertEquals("Company Test", this.companyService.findCompanyById(2L).getName());
+		companyService.updateCompany(new CompanyDto(2L, "Company Test"));
+		assertEquals("Company Test", companyService.findCompanyById(2L).getName());
 	}
-
+	
 	@Test
 	public void deleteCompanyTest() {
-		this.companyService.deleteCompany(1L);
-		assertFalse(this.companyRepository.findById(1L).isPresent());
+		companyService.deleteCompany(1L);
+		assertFalse(companyRepository.findById(1L).isPresent());
 	}
-
+	
 	@Test
 	public void addCompanyTest() {
 		final CompanyDto companyDto = new CompanyDto();
 		companyDto.setName("Test Name");
-		final Company company = this.companyService.addCompany(companyDto);
+		final Company company = companyService.addCompany(companyDto);
 		assertNotNull(company.getId());
 	}
 }

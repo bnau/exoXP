@@ -25,10 +25,8 @@ import javax.persistence.Table;
 @Table(name = "computer")
 public class Computer implements Serializable {
 	
-	/**
-	 *
-	 */
 	private static final long serialVersionUID = 8960295030845081664L;
+	
 	private Long id;
 	private String name;
 	private LocalDateTime introduced;
@@ -43,7 +41,7 @@ public class Computer implements Serializable {
 	@GeneratedValue(strategy = SEQUENCE, generator = "ComputerGenerator")
 	@Column(name = "id")
 	public Long getId() {
-		return this.id;
+		return id;
 	}
 
 	/**
@@ -58,7 +56,7 @@ public class Computer implements Serializable {
 	 */
 	@Column(name = "name")
 	public String getName() {
-		return this.name;
+		return name;
 	}
 
 	/**
@@ -73,7 +71,7 @@ public class Computer implements Serializable {
 	 */
 	@Column(name = "introduced")
 	public LocalDateTime getIntroduced() {
-		return this.introduced;
+		return introduced;
 	}
 
 	/**
@@ -88,7 +86,7 @@ public class Computer implements Serializable {
 	 */
 	@Column(name = "discontinued")
 	public LocalDateTime getDiscontinued() {
-		return this.discontinued;
+		return discontinued;
 	}
 
 	/**
@@ -104,7 +102,7 @@ public class Computer implements Serializable {
 	@ManyToOne(fetch = FetchType.LAZY)
 	@JoinColumn(name = "company_id")
 	public Company getCompany() {
-		return this.company;
+		return company;
 	}
 
 	/**

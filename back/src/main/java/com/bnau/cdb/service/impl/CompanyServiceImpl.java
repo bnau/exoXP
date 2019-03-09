@@ -26,16 +26,16 @@ import com.bnau.cdb.util.MapperUtil;
  */
 @Service
 public class CompanyServiceImpl implements CompanyService {
-	
+
 	@Autowired
 	private MapperUtil mapperUtil;
-	
+
 	@Autowired
 	private CompanyRepository companyRepository;
-	
+
 	@Autowired
 	private ComputerRepository computerRepository;
-	
+
 	/**
 	 * {@inheritDocs}
 	 */
@@ -43,48 +43,47 @@ public class CompanyServiceImpl implements CompanyService {
 	public Page<Company> findCompanies(final Pageable pageable) {
 		final PageRequest page = PageRequest.of(pageable.getPageNumber(), pageable.getPageSize(),
 				pageable.getSortOr(Sort.by("id")));
-		return this.companyRepository.findAll(page);
+		return companyRepository.findAll(page);
 	}
-	
+
 	/**
 	 * {@inheritDocs}
 	 */
 	@Override
 	public Company findCompanyById(final Long id) {
 		try {
-			return this.companyRepository.findById(id).get();
+			return companyRepository.findById(id).get();
 		} catch (final NoSuchElementException e) {
-			throw new ResponseStatusException(HttpStatus.NOT_FOUND, "Company Not Found", e);
+			throw new ResponseStatusException(HttpStatus.INTERNAL_SERVER_ERROR, "Company Not Found", e);
 		}
 	}
-	
+
 	/**
 	 * {@inheritDocs}
 	 */
 	@Override
 	public void updateCompany(final CompanyDto company) {
-		final Company dbCompany = new Company();
-		dbCompany.setId(company.getId());
+		final Company dbCompany = findCompanyById(company.getId());
 		dbCompany.setName(company.getName());
-		this.companyRepository.save(dbCompany);
+		companyRepository.save(dbCompany);
 	}
-	
+
 	/**
 	 * {@inheritDocs}
 	 */
 	@Override
 	public void deleteCompany(final Long id) {
-		this.computerRepository.deleteByCompany(this.companyRepository.findById(id).get());
-		this.companyRepository.deleteById(id);
+		computerRepository.deleteByCompany(findCompanyById(id));
+		companyRepository.deleteById(id);
 	}
-	
+
 	/**
 	 * {@inheritDocs}
 	 */
 	@Override
 	public Company addCompany(final CompanyDto company) {
-		final Company dbCompany = this.mapperUtil.map(company, Company.class);
-		return this.companyRepository.save(dbCompany);
+		final Company dbCompany = mapperUtil.map(company, Company.class);
+		return companyRepository.save(dbCompany);
 	}
-	
+
 }

@@ -32,58 +32,58 @@ import com.bnau.cdb.util.TestUtil;
 @AutoConfigureMockMvc
 @Transactional
 public class CompanyControllerTests {
-
+	
 	@Autowired
 	private MockMvc mockMvc;
-
+	
 	@Test
 	public void findCompaniesTest() throws Exception {
 		// @formatter:off
-		this.mockMvc.perform(get("/api/companies")).andExpect(status().isOk())
+		mockMvc.perform(get("/api/companies")).andExpect(status().isOk())
 				.andExpect(content().contentType(MediaType.APPLICATION_JSON_UTF8))
 				.andExpect(jsonPath("$.content", hasSize(greaterThan(0))));
 		// @formatter:on
 	}
-
+	
 	@Test
 	public void findCompanyByIdTest() throws Exception {
 		// @formatter:off
-		this.mockMvc.perform(get("/api/companies/1")).andExpect(status().isOk())
+		mockMvc.perform(get("/api/companies/1")).andExpect(status().isOk())
 				.andExpect(content().contentType(MediaType.APPLICATION_JSON_UTF8))
 				.andExpect(jsonPath("$.name", equalTo("Apple Inc.")));
 		// @formatter:on
 	}
-
+	
 	@Test
 	public void updateCompanyTest() throws Exception {
 		final CompanyDto company = new CompanyDto(1L, "Test name");
-
+		
 		final String requestJson = TestUtil.dtoToJson(company);
-
+		
 		// @formatter:off
-		this.mockMvc.perform(post("/api/companies")
+		mockMvc.perform(post("/api/companies")
 				.contentType(MediaType.APPLICATION_JSON_UTF8)
 				.content(requestJson))
 				.andExpect(status().isOk());
 		// @formatter:on
 	}
-
+	
 	@Test
 	public void deleteCompanyTest() throws Exception {
 		// @formatter:off
-		this.mockMvc.perform(delete("/api/companies/1"))
+		mockMvc.perform(delete("/api/companies/1"))
 				.andExpect(status().isOk());
 		// @formatter:on
 	}
-
+	
 	@Test
 	public void addCompanyTest() throws Exception {
 		final CompanyDto company = new CompanyDto();
 		company.setName("Test company");
 		final String requestJson = TestUtil.dtoToJson(company);
-
+		
 		// @formatter:off
-		this.mockMvc.perform(put("/api/companies")
+		mockMvc.perform(put("/api/companies")
 				.contentType(MediaType.APPLICATION_JSON_UTF8)
 				.content(requestJson))
 				.andExpect(status().isOk())
