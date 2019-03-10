@@ -4,10 +4,11 @@ import { FormsModule } from '@angular/forms';
 import { RouterModule } from '@angular/router';
 import { SharedModule } from '../shared/shared-module';
 import { ComputersComponent } from './computers.component';
+import { DatePosteriorValidatorDirective } from './date-posterior-validator.directive';
 import { EditComputersComponent } from './edit-computers/edit-computers.component';
 
 @NgModule({
-  declarations: [ComputersComponent, EditComputersComponent],
+  declarations: [ComputersComponent, EditComputersComponent, DatePosteriorValidatorDirective],
   imports: [
     CommonModule,
     RouterModule,
