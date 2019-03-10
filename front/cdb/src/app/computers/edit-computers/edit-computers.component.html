@@ -1,0 +1,62 @@
+<div *ngIf="creationMode || computer?.id">
+  <div class="container mt-5">
+    <section>
+      <h1>
+        <ng-container *ngIf="creationMode; else editTitle">
+          New Computer
+        </ng-container>
+        <ng-template #editTitle>
+          Computer n°{{computer?.id}}
+        </ng-template>
+      </h1>
+
+      <form name="computerForm" #f="ngForm" (ngSubmit)="f.form.valid && (creationMode ? insert() : update())">
+        <div class="form-group">
+          <label for="name">Name</label>
+          <input class="form-control" id="name" name="name" required="" #name="ngModel" [(ngModel)]="computer.name"
+            type="text" [ngClass]="{ 'is-invalid': f.submitted && name.invalid }">
+          <div *ngIf="f.submitted && name.invalid" class="invalid-feedback">
+            <div *ngIf="name.errors.required">Name is required</div>
+          </div>
+        </div>
+
+        <div class="form-group">
+          <label for="company">Company</label>
+          <select class="form-control" id="company" name="company" [(ngModel)]="computer.company">
+            <option [ngValue]="null">---Select a company---</option>
+            <option *ngFor="let comp of companies" [ngValue]="comp">
+              {{comp.name}}
+            </option>
+          </select>
+        </div>
+
+        <div class="form-group">
+          <label for="introduced">Release date</label>
+          <input class="form-control" id="introduced" name="introduced" type="date" [(ngModel)]="computer.introduced"
+            #introduced="ngModel" appDatePosteriorValidator posteriorDate="discontinued"
+            [ngClass]="{ 'is-invalid': f.submitted && introduced.invalid }">
+          <div *ngIf="f.submitted && introduced.invalid" class="invalid-feedback">
+            <div *ngIf="introduced.errors.posteriorDate">The release date must be before the the discontinued date
+            </div>
+          </div>
+        </div>
+        <div class="form-group">
+          <label for="discontinued">Discontinued date</label>
+          <input class="form-control" id="discontinued" name="discontinued" type="date"
+            [(ngModel)]="computer.discontinued" #discontinued="ngModel" appDatePosteriorValidator
+            anteriorDate="introduced" [ngClass]="{ 'is-invalid': f.submitted && discontinued.invalid }">
+          <div *ngIf="f.submitted && discontinued.invalid" class="invalid-feedback">
+            <div *ngIf="discontinued.errors.posteriorDate">The discontinued date must be after the the release date
+            </div>
+          </div>
+        </div>
+
+        <button class="btn btn-success" type="submit">Save !</button>
+        <button class="btn btn-danger" type="button" (click)="creationMode ? cancel() : delete()">
+          {{creationMode ? 'Cancel' : 'Delete' }}
+        </button>
+
+      </form>
+    </section>
+  </div>
+</div>

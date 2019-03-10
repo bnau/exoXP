@@ -1,5 +1,6 @@
 package com.bnau.cdb.service.impl;
 
+import java.util.List;
 import java.util.NoSuchElementException;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -26,16 +27,16 @@ import com.bnau.cdb.util.MapperUtil;
  */
 @Service
 public class CompanyServiceImpl implements CompanyService {
-
+	
 	@Autowired
 	private MapperUtil mapperUtil;
-
+	
 	@Autowired
 	private CompanyRepository companyRepository;
-
+	
 	@Autowired
 	private ComputerRepository computerRepository;
-
+	
 	/**
 	 * {@inheritDocs}
 	 */
@@ -45,7 +46,7 @@ public class CompanyServiceImpl implements CompanyService {
 				pageable.getSortOr(Sort.by("id")));
 		return companyRepository.findAll(page);
 	}
-
+	
 	/**
 	 * {@inheritDocs}
 	 */
@@ -57,7 +58,7 @@ public class CompanyServiceImpl implements CompanyService {
 			throw new ResponseStatusException(HttpStatus.INTERNAL_SERVER_ERROR, "Company Not Found", e);
 		}
 	}
-
+	
 	/**
 	 * {@inheritDocs}
 	 */
@@ -67,7 +68,7 @@ public class CompanyServiceImpl implements CompanyService {
 		dbCompany.setName(company.getName());
 		companyRepository.save(dbCompany);
 	}
-
+	
 	/**
 	 * {@inheritDocs}
 	 */
@@ -76,7 +77,7 @@ public class CompanyServiceImpl implements CompanyService {
 		computerRepository.deleteByCompany(findCompanyById(id));
 		companyRepository.deleteById(id);
 	}
-
+	
 	/**
 	 * {@inheritDocs}
 	 */
@@ -85,5 +86,13 @@ public class CompanyServiceImpl implements CompanyService {
 		final Company dbCompany = mapperUtil.map(company, Company.class);
 		return companyRepository.save(dbCompany);
 	}
-
+	
+	/**
+	 * {@inheritDocs}
+	 */
+	@Override
+	public List<Company> findAllCompanies() {
+		return companyRepository.findAll(Sort.by("id"));
+	}
+	
 }

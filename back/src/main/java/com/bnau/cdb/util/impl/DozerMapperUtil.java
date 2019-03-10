@@ -1,7 +1,10 @@
 package com.bnau.cdb.util.impl;
 
+import java.util.Collections;
+import java.util.List;
+import java.util.stream.Collectors;
+
 import org.dozer.DozerBeanMapper;
-import org.dozer.Mapper;
 import org.springframework.data.domain.Page;
 import org.springframework.stereotype.Component;
 
@@ -16,7 +19,11 @@ import com.bnau.cdb.util.MapperUtil;
 @Component
 public class DozerMapperUtil implements MapperUtil {
 	
-	private static final Mapper MAPPER = new DozerBeanMapper();
+	private static final DozerBeanMapper MAPPER = new DozerBeanMapper();
+	
+	static {
+		MAPPER.setMappingFiles(Collections.singletonList("dozerJdk8Converters.xml"));
+	}
 	
 	/**
 	 * {@inheritDoc}
@@ -32,6 +39,14 @@ public class DozerMapperUtil implements MapperUtil {
 	@Override
 	public <S, D> Page<D> map(final Page<S> source, final Class<D> destClass) {
 		return source.map(s -> MAPPER.map(s, destClass));
+	}
+	
+	/**
+	 * {@inheritDoc}
+	 */
+	@Override
+	public <S, D> List<D> map(final List<S> source, final Class<D> destClass) {
+		return source.stream().map(s -> MAPPER.map(s, destClass)).collect(Collectors.toList());
 	}
 	
 }

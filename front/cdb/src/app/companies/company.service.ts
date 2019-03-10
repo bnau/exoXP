@@ -9,8 +9,11 @@ import { Company } from './company.model';
   providedIn: 'root'
 })
 export class CompanyService implements IPageService<Company> {
-
   constructor(private readonly httpClient: HttpClient) { }
+
+  getAllEntities(): Observable<Company[]> {
+    return this.httpClient.get<Company[]>(`/api/companies/all`);
+  }
 
   getEntities(num?: number): Observable<Page<Company>> {
     if (!num) {

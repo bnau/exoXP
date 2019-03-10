@@ -1,5 +1,7 @@
 package com.bnau.cdb.util;
 
+import java.util.List;
+
 import org.springframework.data.domain.Page;
 
 /**
@@ -27,4 +29,13 @@ public interface MapperUtil {
 	 * @return Mapped page
 	 */
 	public <S, D> Page<D> map(Page<S> source, Class<D> destClass);
+	
+	/**
+	 * Map list of objects.
+	 *
+	 * @param source    Source list
+	 * @param destClass Class of destination
+	 * @return Mapped list
+	 */
+	public <S, D> List<D> map(List<S> source, Class<D> destClass);
 }

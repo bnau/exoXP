@@ -34,4 +34,9 @@ export class PaginationComponent implements OnInit {
     this.getRoute(this.page.number - 1);
   }
 
+  getNumPages(): number[] {
+    return Array.apply(null, { length: 5 }).map((it, idx) => idx + this.page.number - 2)
+      .filter(it => it >= 0 && it < this.page.totalPages);
+  }
+
 }
