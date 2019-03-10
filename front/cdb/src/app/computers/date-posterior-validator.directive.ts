@@ -34,7 +34,9 @@ export class DatePosteriorValidatorDirective implements Validator {
             return { posteriorDate: { valid: false } };
         } else {
             antDateControl.setErrors(null);
-            postDateControl && postDateControl.setErrors(null);
+            if (postDateControl) {
+                postDateControl.setErrors(null);
+            }
             return null;
         }
     }

@@ -1,6 +1,9 @@
+import { HttpClientModule } from '@angular/common/http';
 import { async, ComponentFixture, TestBed } from '@angular/core/testing';
-
+import { FormsModule } from '@angular/forms';
+import { RouterTestingModule } from '@angular/router/testing';
 import { EditComputersComponent } from './edit-computers.component';
+
 
 describe('EditComputersComponent', () => {
   let component: EditComputersComponent;
@@ -8,9 +11,10 @@ describe('EditComputersComponent', () => {
 
   beforeEach(async(() => {
     TestBed.configureTestingModule({
-      declarations: [ EditComputersComponent ]
+      declarations: [EditComputersComponent],
+      imports: [HttpClientModule, RouterTestingModule, FormsModule]
     })
-    .compileComponents();
+      .compileComponents();
   }));
 
   beforeEach(() => {
