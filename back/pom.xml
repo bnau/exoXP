@@ -153,7 +153,7 @@
 							<outputDirectory>${build.directory}/classes/static/</outputDirectory>
 							<resources>
 								<resource>
-									<directory>../front/cdb/dist</directory>
+									<directory>../front/cdb/dist/cdb</directory>
 								</resource>
 							</resources>
 						</configuration>
@@ -168,12 +168,10 @@
 						<goals>
 							<goal>repackage</goal>
 						</goals>
-                    <configuration>
-                        <finalName>../cdb</finalName>
-                    </configuration>
 					</execution>
 				</executions>
 			</plugin>
 		</plugins>
+		<finalName>../prod/cdb</finalName>
 	</build>
 </project>

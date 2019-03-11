@@ -42,6 +42,10 @@ export class EditComputersComponent implements OnInit {
               c.id !== (this.computer.company && this.computer.company.id)))
         );
       });
+    } else {
+      this.companyService.getAllEntities().subscribe((comps) =>
+        this.companies = comps
+      );
     }
   }
 

@@ -15,10 +15,12 @@ services:
       - PGDATA=/var/lib/postgresql/data/pgdata
 
   back:
-    build: back/.
-    expose:
-      - "8080"
+    build: back/prod/.
+    ports:
+      - "8080:8080"
     depends_on:
       - db
+    links:
+      - "db:database"
 volumes:
   sample_db: {}
